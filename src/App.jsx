@@ -5,6 +5,8 @@ import ProductList from './Components/ProductList'
 import ProductDetails from './Components/ProductDetails'
 import Cart from './Components/Cart'
 import { CartProvider } from './Components/Context/CartContext'
+import ProtectedRoute from "./Components/ProtectedRoute";
+
 
 
 
@@ -15,7 +17,14 @@ function App() {
 <Router>
   <Navbar/>
   <Routes>
-    <Route path="/" element={<ProductList/>}></Route>
+    <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <ProductList/>
+            </ProtectedRoute>
+          }
+        />
     <Route path="/product/:id" element={<ProductDetails/>}/>
       <Route path="/cart" element={<Cart />} />
   </Routes>
