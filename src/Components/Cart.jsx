@@ -5,32 +5,29 @@ import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
 function Cart() {
   const { cartItems, removeFromCart, clearCart } = useContext(CartContext);
 
-  return (
-    <div style={{ padding: "20px" }}>
-      <h2>Your Cart</h2>
+  const handleBuyNow = (item) => {
+    alert(`You purchased "${item.title}" for ₹${item.price}`);
+    removeFromCart(item.id);
+  };
 
-      {/* ✅ If user is signed out → redirect to sign in */}
+  return (
+    <div className="p-5">
+      <h2 className="text-2xl font-semibold mb-4">Your Cart</h2>
+
+
       <SignedOut>
         <RedirectToSignIn />
       </SignedOut>
 
-      {/* ✅ If user is signed in → show cart */}
+     
       <SignedIn>
         {cartItems.length === 0 ? (
-          <p>🛒 Cart is empty!</p>
+          <p className="text-gray-600 text-lg">🛒 Cart is empty!</p>
         ) : (
           <>
             <button
               onClick={clearCart}
-              style={{
-                backgroundColor: "magenta",
-                color: "white",
-                border: "none",
-                padding: "8px 12px",
-                borderRadius: "5px",
-                cursor: "pointer",
-                marginBottom: "15px",
-              }}
+              className="bg-fuchsia-600 hover:bg-fuchsia-700 text-white px-4 py-2 rounded-md mb-4 transition cursor-pointer  hover:border-megenda-400 hover:shadow-[0_0_12px_#60a5fa]"
             >
               🗑️ Clear Cart
             </button>
@@ -38,43 +35,31 @@ function Cart() {
             {cartItems.map((item) => (
               <div
                 key={item.id}
-                style={{
-                  border: "1px solid #ddd",
-                  marginBottom: "10px",
-                  padding: "10px",
-                  borderRadius: "10px",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "15px",
-                }}
+                className="border border-gray-300 rounded-xl mb-3 p-3 flex items-center gap-4 shadow-sm"
               >
                 <img
                   src={item.thumbnail}
                   alt={item.title}
-                  style={{
-                    width: "100px",
-                    height: "100px",
-                    objectFit: "cover",
-                    borderRadius: "8px",
-                  }}
+                  className="w-24 h-24 object-cover rounded-lg"
                 />
-                <div style={{ flexGrow: 1 }}>
-                  <h4>{item.title}</h4>
-                  <p>₹{item.price}</p>
+
+                <div className="flex-grow">
+                  <h4 className="text-lg font-medium">{item.title}</h4>
+                  <p className="text-gray-700 font-semibold">₹{item.price}</p>
                 </div>
 
                 <button
-                  onClick={() => removeFromCart(item.id)}
-                  style={{
-                    backgroundColor: "purple",
-                    color: "white",
-                    border: "none",
-                    padding: "8px 12px",
-                    borderRadius: "5px",
-                    cursor: "pointer",
-                  }}
+                  onClick={() => handleBuyNow(item)}
+                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md transition cursor-pointer  hover:border-magenda-400 hover:shadow-[0_0_12px_#60a5fa]"
                 >
-                   Remove
+                  🛒 Buy Now
+                </button>
+
+                <button
+                  onClick={() => removeFromCart(item.id)}
+                  className="bg-purple-700 hover:bg-purple-800 text-white px-4 py-2 rounded-md transition cursor-pointer  hover:border-megenda-400 hover:shadow-[0_0_12px_#60a5fa]"
+                >
+                  Remove
                 </button>
               </div>
             ))}
@@ -85,4 +70,4 @@ function Cart() {
   );
 }
 
-export default Cart
+export default Cart;

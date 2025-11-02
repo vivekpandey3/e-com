@@ -1,9 +1,9 @@
 import React, { createContext, useState, useEffect } from "react";
 
-// Step 1: Context create kar rahe hain
+
 export const CartContext = createContext();
 
-// Step 2: Provider Component
+
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState(()=>{;
 const savedCart = localStorage.getItem("cartItems")
@@ -19,7 +19,7 @@ useEffect (()=>{
 
 
 
-  //  Add to cart
+
   const addToCart = (product) => {
     setCartItems((prevItems) =>{
       const exists =prevItems.find((item) => item.id===product.id)
@@ -38,7 +38,7 @@ useEffect (()=>{
   }
   
 
-  //  Remove from cart
+
   const removeFromCart = (id) => {
     setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));// match krega id match ki to remove kr dega..
   };

@@ -1,43 +1,28 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import { SignedIn, SignedOut, UserButton, SignInButton, SignUpButton } from "@clerk/clerk-react";
 
+import { NavLink } from "react-router-dom";
+import {
+  SignedIn,
+  SignedOut,
+  UserButton,
+  SignInButton,
+  SignUpButton,
+} from "@clerk/clerk-react";
 
 function Navbar() {
-  const linkStyle = {
-    color: "white",
-    textDecoration: "none",
-    fontWeight: "500",
-    padding: "8px 16px",
-    borderRadius: "6px",
-    transition: "all 0.3s ease",
-  };
-
-  const activeStyle = {
-    backgroundColor: "#ffffff33",
-    borderBottom: "2px solid #fff",
-  };
+  const baseLink =
+    "text-white font-medium px-4 py-2 rounded-md transition-all duration-300";
+  const activeLink = "bg-white/20 border-b-2 border-white";
 
   return (
-    <nav
-      style={{
-        backgroundColor: "#007bff",
-        padding: "14px 24px",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
-      }}
-    >
-      {/* Logo / Brand Name */}
-      <h2 style={{ color: "white", margin: 0 }}>🛍️ E-com</h2>
+    <nav className="bg-blue-500 px-6 py-3 flex justify-between items-center shadow-md">
+      <h2 className="text-white text-xl font-semibold m-0">🛍️ E-com</h2>
 
-      {/* Nav Links */}
-      <div style={{ display: "flex", gap: "16px" }}>
-        <NavLink
+      <div className="flex gap-4 ">
+        <NavLink 
           to="/"
-          style={({ isActive }) =>
-            isActive ? { ...linkStyle, ...activeStyle } : linkStyle
+          className={({ isActive }) =>
+            isActive ? `${baseLink} ${activeLink}` : baseLink
           }
         >
           Products
@@ -45,54 +30,33 @@ function Navbar() {
 
         <NavLink
           to="/cart"
-          style={({ isActive }) =>
-            isActive ? { ...linkStyle, ...activeStyle } : linkStyle
+          className={({ isActive }) =>
+            isActive ? `${baseLink} ${activeLink}` : baseLink
           }
         >
           Cart 🛒
         </NavLink>
       </div>
 
- <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
-        {/* When user is signed in */}
+      <div className="flex gap-3 items-center">
         <SignedIn>
           <UserButton afterSignOutUrl="/" />
         </SignedIn>
 
-        {/* When user is signed out */}
         <SignedOut>
           <SignInButton mode="modal">
-            <button
-              style={{
-                background: "white",
-                color: "#007bff",
-                border: "none",
-                padding: "8px 14px",
-                borderRadius: "6px",
-                cursor: "pointer",
-              }}
-            >
+            <button className="bg-white text-blue-500 px-4 py-2 rounded-md cursor-pointer hover:bg-blue-50">
               Login
             </button>
           </SignInButton>
 
           <SignUpButton mode="modal">
-            <button
-              style={{
-                background: "#0056b3",
-                color: "white",
-                border: "none",
-                padding: "8px 14px",
-                borderRadius: "6px",
-                cursor: "pointer",
-              }}
-            >
+            <button className="bg-blue-700 text-white px-4 py-2 rounded-md cursor-pointer hover:bg-blue-800">
               Signup
             </button>
           </SignUpButton>
         </SignedOut>
       </div>
-
     </nav>
   );
 }
